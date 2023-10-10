@@ -118,7 +118,7 @@ span {
             const otherCost = parseFloat(document.getElementById('otherCost').value) || 0;
 
             // Calculate Technician Cost, Apprentice Cost, and GP Percentage
-            const techCost = techHours * 185;
+            const techCost = techHours * 180;
             const appCost = appHours * 75;
             const gpPercentage = ((quoteTotal - techCost - appCost - subbieCost - materialCost - otherCost) / quoteTotal) * 100;
 
