@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quote Calculator</title>
+    <style>
+/* CSS styles for the Quote Calculator */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input[type="number"] {
+    width: 100%; /* Make the input fields span the full width of the container */
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+    box-sizing: border-box; /* Include padding and border in the total width */
+}
+
+button {
+    display: block;
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+p {
+    text-align: center;
+    margin-top: 10px;
+    color: #555;
+}
+
+span {
+    font-weight: bold;
+    color: #007bff;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Quote Calculator</h1>
+    <form>
+        <label for="quoteTotal">Quote Total:</label>
+        <input type="number" id="quoteTotal"><br>
+
+        <label for="techHours">Technician Hours:</label>
+        <input type="number" id="techHours"><br>
+
+        <label for="apprenticeHours">Apprentice Hours:</label>
+        <input type="number" id="apprenticeHours"><br>
+
+        <label for="subbieCost">Subbie Cost:</label>
+        <input type="number" id="subbieCost"><br>
+
+        <label for="materialCost">Material Cost:</label>
+        <input type="number" id="materialCost"><br>
+
+        <label for="otherCost">Other Cost:</label>
+        <input type="number" id="otherCost"><br>
+    </form>
+
+    <h2>Results:</h2>
+    <p>Technician Cost: <span id="techCost">0.00</span></p>
+    <p>Apprentice Cost: <span id="appCost">0.00</span></p>
+    <p>GP %: <span id="gpPercentage">0.00</span>%</p>
+
+    <script>
+        // Function to calculate the results
+        function calculate() {
+            // Get values from input fields and convert empty/null values to 0
+            const quoteTotal = parseFloat(document.getElementById('quoteTotal').value) || 0;
+            const techHours = parseFloat(document.getElementById('techHours').value) || 0;
+            const appHours = parseFloat(document.getElementById('apprenticeHours').value) || 0;
+            const subbieCost = parseFloat(document.getElementById('subbieCost').value) || 0;
+            const materialCost = parseFloat(document.getElementById('materialCost').value) || 0;
+            const otherCost = parseFloat(document.getElementById('otherCost').value) || 0;
+
+            // Calculate Technician Cost, Apprentice Cost, and GP Percentage
+            const techCost = techHours * 185;
+            const appCost = appHours * 75;
+            const gpPercentage = ((quoteTotal - techCost - appCost - subbieCost - materialCost - otherCost) / quoteTotal) * 100;
+
+            // Update the result elements
+            document.getElementById('techCost').textContent = techCost.toFixed(2);
+            document.getElementById('appCost').textContent = appCost.toFixed(2);
+            document.getElementById('gpPercentage').textContent = isNaN(gpPercentage) ? '0.00' : gpPercentage.toFixed(2);
+        }
+
+        // Add input event listeners to trigger calculations
+        const inputFields = document.querySelectorAll('input');
+        inputFields.forEach((input) => {
+            input.addEventListener('input', calculate);
+        });
+
+        // Initial calculation
+        calculate();
+    </script>
+</body>
+</html>
