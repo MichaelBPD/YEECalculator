@@ -102,9 +102,10 @@ span {
     </form>
 
     <h2>Results:</h2>
-    <p>Technician Cost: <span id="techCost">0.00</span></p>
-    <p>Apprentice Cost: <span id="appCost">0.00</span></p>
+    <p>Technician Cost: $<span id="techCost">0.00</span></p>
+    <p>Apprentice Cost: $<span id="appCost">0.00</span></p>
     <p>GP %: <span id="gpPercentage">0.00</span>%</p>
+    <p id="gpMessage"></p>
 
     <script>
         // Function to calculate the results
@@ -116,18 +117,26 @@ span {
             const subbieCost = parseFloat(document.getElementById('subbieCost').value) || 0;
             const materialCost = parseFloat(document.getElementById('materialCost').value) || 0;
             const otherCost = parseFloat(document.getElementById('otherCost').value) || 0;
-
+    
             // Calculate Technician Cost, Apprentice Cost, and GP Percentage
             const techCost = techHours * 180;
             const appCost = appHours * 75;
-            const gpPercentage = ((quoteTotal - techCost - appCost - subbieCost - materialCost - otherCost) / quoteTotal) * 100;
+            const TotalCost = techCost + appCost + subbieCost + materialCost + otherCost;
+            const gpPercentage = ((quoteTotal - TotalCost) / quoteTotal) * 100;
+            const quoteVariation = (TotalCost / 0.3);
 
             // Update the result elements
             document.getElementById('techCost').textContent = techCost.toFixed(2);
             document.getElementById('appCost').textContent = appCost.toFixed(2);
             document.getElementById('gpPercentage').textContent = isNaN(gpPercentage) ? '0.00' : gpPercentage.toFixed(2);
+            const gpMessage = document.getElementById('gpMessage');
+            if (gpPercentage < 70) {
+                gpMessage.textContent = 'Change quoted price to $' + Math.ceil(quoteVariation) + ' for 70% GP';
+            } else {
+                gpMessage.textContent = ''; // Clear the message if GP % is 70% or higher
+            }
         }
-
+    
         // Add input event listeners to trigger calculations
         const inputFields = document.querySelectorAll('input');
         inputFields.forEach((input) => {
