@@ -5,77 +5,117 @@
     <style>
 /* CSS styles for the Quote Calculator */
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f7f7f7;
-}
-
-h1 {
-    text-align: center;
-    margin-top: 20px;
-    color: #333;
-}
-
-form {
-    max-width: 400px;
-    margin: 0 auto;
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f2c018;
+    }
+        
+    .container {
+    display: flex;
+    justify-content: center; /* Center the container horizontally */
+    align-items: center;
     background-color: #fff;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 150px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-}
-
-input[type="number"] {
-    width: 100%; /* Make the input fields span the full width of the container */
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    font-size: 16px;
-    box-sizing: border-box; /* Include padding and border in the total width */
-}
-
-button {
-    display: block;
-    width: 100%;
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 3px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-h2 {
     text-align: center;
-    margin-top: 20px;
-    color: #333;
+    margin: 20px auto; /* Center the container horizontally */
+    max-width: 400px; /* Set a maximum width */
 }
 
-p {
-    text-align: center;
-    margin-top: 10px;
-    color: #555;
-}
+    .left-column, .right-column {
+        flex: 1; /* Both columns occupy an equal share of the container */
+        padding: 10px;
+    }
+        
+    h1 {
+        text-align: center;
+        margin-top: 20px;
+        color: #005b90;
+    }
+    
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+        color: #555;
+    }
+    
+    input[type="number"] {
+        width: 100%; /* Make the input fields span the full width of the container */
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 16px;
+        box-sizing: border-box; /* Include padding and border in the total width */
+    }
+    
+    button {
+        display: block;
+        width: 100%;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 3px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    
+    button:hover {
+        background-color: #0056b3;
+    }
+    
+    h2 {
+        text-align: center;
+        margin-top: 20px;
+        color: #005b90;
+    }
+    
+    p {
+        text-align: center;
+        margin-top: 10px;
+        color: #555;
+    }
+    
+    span {
+        font-weight: bold;
+        color: #005b90;
+    }
+    .results-box {
+        max-width: 400px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        margin-top: 20px;
+    }
 
-span {
-    font-weight: bold;
-    color: #007bff;
-}
+    .results-box p {
+        color: #007bff;
+    }
+        
+    .image {
+        max-width: 100%; /* Make sure the image doesn't exceed its container's width */
+    }
+        
+    .quote-variation {
+        font-weight: bold;
+        color: #005b90; 
+    }
 
     </style>
 </head>
@@ -101,11 +141,18 @@ span {
         <input type="number" id="otherCost"><br>
     </form>
 
-    <h2>Results:</h2>
-    <p>Technician Cost: $<span id="techCost">0.00</span></p>
-    <p>Apprentice Cost: $<span id="appCost">0.00</span></p>
-    <p>GP %: <span id="gpPercentage">0.00</span>%</p>
-    <p id="gpMessage"></p>
+    <div class="container">
+        <div class="left-column">
+            <h2>Results:</h2>
+            <p>Technician Cost: $<span id="techCost">0.00</span></p>
+            <p>Apprentice Cost: $<span id="appCost">0.00</span></p>
+            <p>GP %: <span id="gpPercentage">0.00</span>%</p>
+            <p id="gpMessage"></p>
+        </div>
+        <div class="right-column">
+            <img class="image" src="Logo.png" alt="Image">
+        </div>
+    </div>
 
     <script>
         // Function to calculate the results
@@ -131,7 +178,7 @@ span {
             document.getElementById('gpPercentage').textContent = isNaN(gpPercentage) ? '0.00' : gpPercentage.toFixed(2);
             const gpMessage = document.getElementById('gpMessage');
             if (gpPercentage < 70) {
-                gpMessage.textContent = 'Change quoted price to $' + Math.ceil(quoteVariation) + ' for 70% GP';
+                gpMessage.innerHTML = 'Change quoted price to $<span class="quote-variation">' + Math.ceil(quoteVariation) + '</span> for 70% GP';
             } else {
                 gpMessage.textContent = ''; // Clear the message if GP % is 70% or higher
             }
