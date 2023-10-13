@@ -122,9 +122,6 @@
 <body>
     <h1>Quote Calculator</h1>
     <form>
-        <label for="quoteTotal">Quote Total:</label>
-        <input type="number" id="quoteTotal"><br>
-
         <label for="techHours">Technician Hours:</label>
         <input type="number" id="techHours"><br>
 
@@ -139,6 +136,9 @@
 
         <label for="otherCost">Other Cost:</label>
         <input type="number" id="otherCost"><br>
+    
+        <label for="quoteTotal">Quote Total:</label>
+        <input type="number" id="quoteTotal"><br>    
     </form>
 
     <div class="container">
@@ -167,7 +167,7 @@
     
             // Calculate Technician Cost, Apprentice Cost, and GP Percentage
             const techCost = techHours * 180;
-            const appCost = appHours * 75;
+            const appCost = appHours * 135;
             const TotalCost = techCost + appCost + subbieCost + materialCost + otherCost;
             const gpPercentage = ((quoteTotal - TotalCost) / quoteTotal) * 100;
             const quoteVariation = (TotalCost / 0.3);
