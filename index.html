@@ -144,8 +144,6 @@
     <div class="container">
         <div class="left-column">
             <h2>Results:</h2>
-            <p>Technician Cost: $<span id="techCost">0.00</span></p>
-            <p>Apprentice Cost: $<span id="appCost">0.00</span></p>
             <p>GP %: <span id="gpPercentage">0.00</span>%</p>
             <p id="gpMessage"></p>
         </div>
@@ -173,8 +171,6 @@
             const quoteVariation = (TotalCost / 0.3);
 
             // Update the result elements
-            document.getElementById('techCost').textContent = techCost.toFixed(2);
-            document.getElementById('appCost').textContent = appCost.toFixed(2);
             document.getElementById('gpPercentage').textContent = isNaN(gpPercentage) ? '0.00' : gpPercentage.toFixed(2);
             const gpMessage = document.getElementById('gpMessage');
             if (gpPercentage < 70) {
