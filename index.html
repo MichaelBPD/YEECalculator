@@ -120,37 +120,49 @@
     </style>
 </head>
 <body>
-    <h1>Quote Calculator</h1>
-    <form>
-        <label for="techHours">Technician Hours:</label>
-        <input type="number" id="techHours"><br>
+    <script>
+        // Define the correct password
+        const correctPassword = "8008";
+        const enteredPassword = prompt("Please enter the password:");
 
-        <label for="apprenticeHours">Apprentice Hours:</label>
-        <input type="number" id="apprenticeHours"><br>
+        if (enteredPassword === correctPassword) {
+            // Inserting your form and container directly into the body
+            document.body.innerHTML = `
+                <h1>Quote Calculator</h1>
+                <form>
+                    <label for="techHours">Technician Hours:</label>
+                    <input type="number" id="techHours"><br>
 
-        <label for="subbieCost">Subbie Cost:</label>
-        <input type="number" id="subbieCost"><br>
+                    <label for="apprenticeHours">Apprentice Hours:</label>
+                    <input type="number" id="apprenticeHours"><br>
 
-        <label for="materialCost">Material Cost:</label>
-        <input type="number" id="materialCost"><br>
+                    <label for="subbieCost">Subbie Cost:</label>
+                    <input type="number" id="subbieCost"><br>
 
-        <label for="otherCost">Other Cost:</label>
-        <input type="number" id="otherCost"><br>
-    
-        <label for="quoteTotal">Quote Total:</label>
-        <input type="number" id="quoteTotal"><br>    
-    </form>
+                    <label for="materialCost">Material Cost:</label>
+                    <input type="number" id="materialCost"><br>
 
-    <div class="container">
-        <div class="left-column">
-            <h2>Results:</h2>
-            <p>GP %: <span id="gpPercentage">0.00</span>%</p>
-            <p id="gpMessage"></p>
-        </div>
-        <div class="right-column">
-            <img class="image" src="Logo.png" alt="Image">
-        </div>
-    </div>
+                    <label for="otherCost">Other Cost:</label>
+                    <input type="number" id="otherCost"><br>
+                    
+                    <label for="quoteTotal">Quote Total:</label>
+                    <input type="number" id="quoteTotal"><br>    
+                </form>
+                <div class="container">
+                    <div class="left-column">
+                        <h2>Results:</h2>
+                        <p>GP %: <span id="gpPercentage">0.00</span>%</p>
+                        <p id="gpMessage"></p>
+                    </div>
+                    <div class="right-column">
+                        <img class="image" src="Logo.png" alt="Image">
+                    </div>
+                </div>
+            `;
+        } else {
+            document.body.innerHTML = "<p>Access denied. Incorrect password.</p>";
+        }
+    </script>
 
     <script>
         // Function to calculate the results
@@ -180,14 +192,17 @@
             }
         }
     
-        // Add input event listeners to trigger calculations
-        const inputFields = document.querySelectorAll('input');
-        inputFields.forEach((input) => {
-            input.addEventListener('input', calculate);
-        });
 
-        // Initial calculation
-        calculate();
+        // Only set up the event listeners if the password was correct
+        if (document.getElementById('techHours')) {
+            const inputFields = document.querySelectorAll('input');
+            inputFields.forEach((input) => {
+                input.addEventListener('input', calculate);
+            });
+
+            // Initial calculation
+            calculate();
+        }
     </script>
 </body>
 </html>
