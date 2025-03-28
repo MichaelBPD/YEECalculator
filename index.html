@@ -151,7 +151,6 @@
                 <div class="container">
                     <div class="left-column">
                         <h2>Results:</h2>
-                        <p>GP %: <span id="gpPercentage">0.00</span>%</p>
                         <p id="gpMessage"></p>
                     </div>
                     <div class="right-column">
@@ -159,6 +158,7 @@
                     </div>
                 </div>
             `;
+            //                        <p>GP %: <span id="gpPercentage">0.00</span>%</p>
         } else {
             document.body.innerHTML = "<p>Access denied. Incorrect password.</p>";
         }
@@ -166,7 +166,7 @@
 
     <script>
         // Function to calculate the results
-        function calculate() {
+ function calculate() {
             // Get values from input fields and convert empty/null values to 0
             const quoteTotal = parseFloat(document.getElementById('quoteTotal').value) || 0;
             const techHours = parseFloat(document.getElementById('techHours').value) || 0;
@@ -176,19 +176,50 @@
             const otherCost = parseFloat(document.getElementById('otherCost').value) || 0;
     
             // Calculate Technician Cost, Apprentice Cost, and GP Percentage
-            const techCost = techHours * 195;
-            const appCost = appHours * 135;
-            const TotalCost = techCost + appCost + subbieCost + materialCost + otherCost;
-            const gpPercentage = ((quoteTotal - TotalCost) / quoteTotal) * 100;
-            const quoteVariation = (TotalCost / 0.3);
+            const techCost = techHours * 214.5;
+            const appCost = appHours * 150;
 
-            // Update the result elements
-            document.getElementById('gpPercentage').textContent = isNaN(gpPercentage) ? '0.00' : gpPercentage.toFixed(2);
-            const gpMessage = document.getElementById('gpMessage');
-            if (gpPercentage < 70) {
-                gpMessage.innerHTML = 'Change quoted price to $<span class="quote-variation">' + Math.ceil(quoteVariation) + '</span> for 70% GP';
+            let adjustedMaterialCost = materialCost;
+            if (materialCost > 1000) {
+                adjustedMaterialCost = materialCost * 0.39;
+            } else if (materialCost > 500) {
+                adjustedMaterialCost = materialCost * 0.486;
+            } else if (materialCost > 250) {
+                adjustedMaterialCost = materialCost * 0.54;
+            } else if (materialCost > 100) {
+                adjustedMaterialCost = materialCost * 0.9;
+            } else if (materialCost > 30) {
+                adjustedMaterialCost = materialCost * 1.05;
             } else {
-                gpMessage.textContent = ''; // Clear the message if GP % is 70% or higher
+                adjustedMaterialCost = materialCost * 1.2;
+            }
+
+            let adjustedSubbieCost = subbieCost;
+            if (subbieCost > 1000) {
+                adjustedSubbieCost = subbieCost * 0.39;
+            } else if (subbieCost > 500) {
+                adjustedSubbieCost = subbieCost * 0.486;
+            } else if (subbieCost > 250) {
+                adjustedSubbieCost = subbieCost * 0.54;
+            } else if (subbieCost > 100) {
+                adjustedSubbieCost = subbieCost * 0.9;
+            } else if (subbieCost > 30) {
+                adjustedSubbieCost = subbieCost * 1.05;
+            } else {
+                adjustedSubbieCost = subbieCost * 1.2;
+            }
+
+            const TotalCost = techCost + appCost + adjustedSubbieCost + adjustedMaterialCost + otherCost;
+            const gpPercentage = ((quoteTotal - TotalCost) / quoteTotal) * 100;
+            const quoteVariation = (TotalCost / 0.28);
+     
+            // Update the result elements
+            //document.getElementById('gpPercentage').textContent = isNaN(gpPercentage) ? '0.00' : gpPercentage.toFixed(2);
+            const gpMessage = document.getElementById('gpMessage');
+            if (gpPercentage < 72) {
+                gpMessage.innerHTML = 'Change quoted price to $<span class="quote-variation">' + Math.ceil(quoteVariation) + '</span> to be priced correctly.';
+            } else {
+                gpMessage.innerHTML = 'Quoted price correctly'; // Clear the message if GP % is 65% or higher
             }
         }
     
@@ -204,5 +235,7 @@
             calculate();
         }
     </script>
+</body>
+</html>
 </body>
 </html>
