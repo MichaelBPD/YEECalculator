@@ -176,8 +176,8 @@
             const otherCost = parseFloat(document.getElementById('otherCost').value) || 0;
     
             // Calculate Technician Cost, Apprentice Cost, and GP Percentage
-            const techCost = techHours * 214.5;
-            const appCost = appHours * 150;
+            const techCost = techHours * 195;
+            const appCost = appHours * 135;
 
             let adjustedMaterialCost = materialCost;
             if (materialCost > 1000) {
@@ -211,12 +211,12 @@
 
             const TotalCost = techCost + appCost + adjustedSubbieCost + adjustedMaterialCost + otherCost;
             const gpPercentage = ((quoteTotal - TotalCost) / quoteTotal) * 100;
-            const quoteVariation = (TotalCost / 0.28);
+            const quoteVariation = (TotalCost / 0.3);
      
             // Update the result elements
             //document.getElementById('gpPercentage').textContent = isNaN(gpPercentage) ? '0.00' : gpPercentage.toFixed(2);
             const gpMessage = document.getElementById('gpMessage');
-            if (gpPercentage < 72) {
+            if (gpPercentage < 70) {
                 gpMessage.innerHTML = 'Change quoted price to $<span class="quote-variation">' + Math.ceil(quoteVariation) + '</span> to be priced correctly.';
             } else {
                 gpMessage.innerHTML = 'Quoted price correctly'; // Clear the message if GP % is 65% or higher
