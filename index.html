@@ -168,6 +168,7 @@
         // Function to calculate the results
  function calculate() {
             // Get values from input fields and convert empty/null values to 0
+            const gpTarget = 70;
             const quoteTotal = parseFloat(document.getElementById('quoteTotal').value) || 0;
             const techHours = parseFloat(document.getElementById('techHours').value) || 0;
             const appHours = parseFloat(document.getElementById('apprenticeHours').value) || 0;
@@ -196,9 +197,9 @@
 
             let adjustedSubbieCost = subbieCost;
             if (subbieCost > 500) {
-                adjustedSubbieCost = subbieCost * 0.5;
+                adjustedSubbieCost = subbieCost * 1.5 * ((100 - gpTarget) / 100);   
             } else {
-                adjustedSubbieCost = subbieCost * 0.6;
+                adjustedSubbieCost = subbieCost * 1.6 * ((100 - gpTarget) / 100);   
             }     
             /*
             let adjustedSubbieCost = subbieCost;
@@ -218,7 +219,7 @@
             */
             const TotalCost = techCost + appCost + adjustedSubbieCost + ((adjustedMaterialCost + otherCost) * 1.05);
             const gpPercentage = ((quoteTotal - TotalCost) / quoteTotal) * 100;
-            const quoteVariation = (TotalCost / 0.3);
+            const quoteVariation = (TotalCost / (1 - (gpTarget / 100)));
      
             // Update the result elements
             //document.getElementById('gpPercentage').textContent = isNaN(gpPercentage) ? '0.00' : gpPercentage.toFixed(2);
